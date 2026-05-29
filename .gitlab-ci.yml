@@ -1,5 +1,18 @@
 stages:
+  - build
   - deploy
+
+build-job:
+  stage: build
+  tags:
+    - flask-runner
+
+  script:
+    - cd /home/ubuntu/docker/Flask-App
+    - docker compose build
+
+  only:
+    - main
 
 deploy-job:
   stage: deploy
