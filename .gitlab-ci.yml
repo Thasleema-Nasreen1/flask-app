@@ -19,6 +19,9 @@ deploy-job:
   tags:
     - flask-runner
 
+  needs:
+    - build-job
+
   script:
     - cd /home/ubuntu/docker/Flask-App
     - docker compose up -d
