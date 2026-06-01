@@ -8,7 +8,6 @@ build-job:
     - docker-runner
 
   script:
-    - cd /home/ubuntu/docker/Flask-App
     - docker compose build
 
   only:
@@ -23,7 +22,6 @@ deploy-job:
     - build-job
 
   script:
-    - cd /home/ubuntu/docker/Flask-App
     - docker compose down
     - docker compose up -d
 
