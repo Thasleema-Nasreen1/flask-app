@@ -21,7 +21,8 @@ deploy-job:
     - docker-runner
   image: docker:latest
   script:
-    - docker compose down --remove-orphans || true
+    - docker ps -aq | xargs -r docker rm -f || true
+    - docker compose down --volumes --remove-orphans || true
     - docker compose up -d --build --force-recreate --remove-orphans
   only:
     - main
