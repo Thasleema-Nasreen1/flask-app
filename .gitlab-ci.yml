@@ -23,7 +23,9 @@ deploy-job:
   needs:
     - build-job
   script:
-    - docker compose down --remove-orphans
-    - docker compose up -d --force-recreate --remove-orphans
+    - docker rm -f postgres-db || true
+    - docker rm -f flask-backend || true
+    - docker rm -f nginx || true
+    - docker compose up -d --build --force-recreate
   only:
     - main
