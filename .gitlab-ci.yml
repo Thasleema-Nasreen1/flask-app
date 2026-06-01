@@ -5,7 +5,7 @@ stages:
 build-job:
   stage: build
   tags:
-    - flask-runner
+    - docker-runner
 
   script:
     - cd /home/ubuntu/docker/Flask-App
