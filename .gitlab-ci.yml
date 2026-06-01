@@ -24,7 +24,6 @@ deploy-job:
     - build-job
   script:
     - docker compose down --remove-orphans
-    - docker rm -f postgres-db || true
-    - docker compose up -d --force-recreate
+    - docker compose up -d --force-recreate --remove-orphans
   only:
     - main
