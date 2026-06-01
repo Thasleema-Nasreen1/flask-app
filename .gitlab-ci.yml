@@ -24,6 +24,7 @@ deploy-job:
 
   script:
     - cd /home/ubuntu/docker/Flask-App
+    - docker compose down
     - docker compose up -d
 
   only:
