@@ -2,28 +2,28 @@ stages:
   - build
   - deploy
 
+variables:
+  DOCKER_HOST: unix:///var/run/docker.sock
+
 build-job:
   stage: build
   tags:
     - docker-runner
-
+  image: docker:24
   script:
     - docker compose build
-
   only:
     - main
 
 deploy-job:
   stage: deploy
   tags:
-    - flask-runner
-
+    - docker-runner
+  image: docker:24
   needs:
     - build-job
-
   script:
     - docker compose down
     - docker compose up -d
-
   only:
     - main
