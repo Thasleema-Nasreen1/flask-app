@@ -9,7 +9,7 @@ build-job:
   stage: build
   tags:
     - docker-runner
-  image: docker:24
+  image: docker:latest
   script:
     - docker compose build
   only:
@@ -19,13 +19,9 @@ deploy-job:
   stage: deploy
   tags:
     - docker-runner
-  image: docker:24
-  needs:
-    - build-job
+  image: docker:latest
   script:
-    - docker rm -f postgres-db || true
-    - docker rm -f flask-backend || true
-    - docker rm -f nginx || true
-    - docker compose up -d --build --force-recreate
+    - docker compose down --remove-orphans || true
+    - docker compose up -d --build --force-recreate --remove-orphans
   only:
     - main
