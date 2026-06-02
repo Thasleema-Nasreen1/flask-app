@@ -1,5 +1,5 @@
 #pipeline test
-image: docker:24
+image: docker:27
 
 stages:
   - build
