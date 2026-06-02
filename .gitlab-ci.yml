@@ -10,6 +10,8 @@ build-job:
     - docker-executor-runner
 
   script:
+    - docker version
+    - docker compose version
     - docker compose build
 
   only:
@@ -24,8 +26,10 @@ deploy-job:
     - build-job
 
   script:
+    - cd /home/ubuntu/docker/Flask-App
     - docker compose down --remove-orphans || true
     - docker compose up -d --build
+    - docker ps
 
   only:
     - main
