@@ -1,27 +1,31 @@
+image: docker:24
+
 stages:
   - build
   - deploy
 
-variables:
-  DOCKER_HOST: unix:///var/run/docker.sock
-
 build-job:
   stage: build
   tags:
-    - docker-runner
-  image: docker:latest
+    - docker-executor-runner
+
   script:
     - docker compose build
+
   only:
     - main
 
 deploy-job:
   stage: deploy
   tags:
-    - docker-runner
-  image: docker:latest
+    - docker-executor-runner
+
+  needs:
+    - build-job
+
   script:
     - docker compose down --remove-orphans || true
-    - docker compose up -d --build --force-recreate --remove-orphans
+    - docker compose up -d --build
+
   only:
     - main
