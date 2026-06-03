@@ -1,0 +1,19 @@
+name: Flask CI CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, Linux, X64]
+
+    steps:
+      - name: Deploy application
+        run: |
+          cd /home/ubuntu/docker/Flask-App
+          git pull origin main
+          docker compose down --remove-orphans || true
+          docker compose up -d --build
+          docker ps
