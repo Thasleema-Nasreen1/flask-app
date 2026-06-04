@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Deploy application
         run: |
+          rsync -av --delete ./ /home/ubuntu/docker/Flask-App/
           cd /home/ubuntu/docker/Flask-App
           git pull origin main
           docker compose down --remove-orphans || true
