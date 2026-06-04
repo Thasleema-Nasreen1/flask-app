@@ -12,7 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - run: rsync -av ./ /home/ubuntu/docker/Flask-App/
+      - run: rsync -av --no-perms --no-owner --no-group ./ /home/ubuntu/docker/Flask-App/
+      
       - run: |
           cd /home/ubuntu/docker/Flask-App
           docker compose down --remove-orphans || true
