@@ -10,11 +10,11 @@ jobs:
     runs-on: [self-hosted, Linux, X64]
 
     steps:
-      - name: Deploy application
-        run: |
-          rsync -av --delete ./ /home/ubuntu/docker/Flask-App/
+      - uses: actions/checkout@v4
+
+      - run: rsync -av ./ /home/ubuntu/docker/Flask-App/
+      - run: |
           cd /home/ubuntu/docker/Flask-App
-          git pull origin main
           docker compose down --remove-orphans || true
           docker compose up -d --build
           docker ps
